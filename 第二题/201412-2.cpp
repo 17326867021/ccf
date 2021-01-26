@@ -1,67 +1,30 @@
-#include<iostream>
+# include<iostream>
 using namespace std;
-int n;
 
-int direction(int x, int y){ // (¡ú1)(¨L2)(¡ý3)(¨J4) 
-	int result = 0;
-	if(x == 0 && y != (n - 1)){ // µÚÒ»ÐÐ 
-		if((x + y) & 1){ // Å¼Êý×óÏÂ 
-			 result = 2;
-		} else { // ÆæÊýÓÒ 
-			result = 1;
-		}
-	} else if(y == 0 && x != (n - 1)){ // µÚÒ»ÁÐ 
-		if((x + y) & 1){ // Å¼Êý¨J 
-			 result = 3;
-		} else { // ÆæÊý¡ý 
-			result = 4;
-		}
-	} else if(x == (n - 1)){ // ×îºóÒ»ÐÐ 
-		if((x + y) & 1){ // Å¼Êý¡ú 
-			 result = 1;
-		} else { // ÆæÊýÓÒÉÏ 
-			result = 4;
-		}
-	} else if(y == (n - 1)){ // ×îºóÒ»ÁÐ 
-		if((x + y) & 1){ // Å¼Êý¨L 
-			 result = 2;
-		} else { // ÆæÊý¡ý 
-			result = 3;
-		}
-	} else { // ²»ÔÚ±ß½ç 
-		if((x + y) & 1){ // Å¼Êý¨L
-			 result = 2;
-		} else { // ÆæÊý¨J 
-			result = 4;
-		}
-	}
-	return result; 
-}
 int main(){
+	int n;
 	cin >> n;
-	int matrix[n][n] = {{0}};
-	for(int i = 0; i < n; i++){ // initial matrix
+	int map[n][n];
+	// è¾“å…¥ 
+	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
-			cin >> matrix[i][j];
+			cin >> map[i][j];
 		}
 	}
-	cout << matrix[0][0];
-	int x = 0, y = 1, index = 0;
-	for(int i = 0; i < n * n - 1; i++){
-		cout << " " << matrix[x][y];
-		index = direction(x, y); // (¡ú1)(¨L2)(¡ý3)(¨J4) 
-		if(index == 1){
-			y++;
-		} else if(index == 2){
-			y--;
-			x++;
-		} else if(index == 3){
-			x++;
-		} else {
-			y++;
-			x--;
+	// è¾“å‡º 
+	for(int sum = 0; sum <= (n-1)*2 ; sum++){
+		for(int i = 0; i <= sum; i++){
+			if(sum%2){ // sumæ˜¯å¥‡æ•° 
+				if(i < n && sum-i < n){
+					cout << map[i][sum-i] << " ";
+				}
+			}else{
+				if(i < n && sum-i < n){
+					cout << map[sum-i][i] << " ";
+				}
+			}  
 		}
 	}
-	cout << endl;
+	
 	return 0;
-} 
+}
